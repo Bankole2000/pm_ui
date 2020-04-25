@@ -28,14 +28,14 @@
         <v-list>
             <v-list-item class="d-flex justify-center mt-3">
               <v-list-item-avatar size="120">
-                <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+                <v-img src="/avatars/pp.jpg"></v-img>
               </v-list-item-avatar>
             </v-list-item>
 
             <v-list-item link>
               <v-list-item-content>
-                <v-list-item-title class="title">Sandra Adams</v-list-item-title>
-                <v-list-item-subtitle>sandra_a88@gmail.com</v-list-item-subtitle>
+                <v-list-item-title class="title">Sean Bankz</v-list-item-title>
+                <v-list-item-subtitle>techybanky@gmail.com</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
