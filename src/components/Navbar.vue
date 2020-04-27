@@ -8,6 +8,40 @@
         <span class="primary--text font-regular">Manager</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <div class="hidden-sm-and-down">
+        <Popup/>
+      </div>
+      <v-menu offset-y
+        bottom
+        origin="center center"
+        transition="slide-y-transition"
+        >
+        <template v-slot:activator="{ on }">
+          <v-btn
+          color="primary"
+          dark
+          v-on="on"
+          class="hidden-sm-and-down"
+          >
+          <v-icon left >
+            mdi-menu-down
+            </v-icon>
+            Menu
+          </v-btn>
+        </template>
+
+        <v-list dark flat class="grey darken-4 primary--text">
+          <v-list-item
+          v-for="(link, i) in links"
+          :key="i"
+          router
+          :to="link.route"
+        >
+            <v-list-item-title> <v-icon>{{link.icon}}</v-icon> {{ link.text }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
       <v-btn color="grey lighten-3" text>
         <span>Sign out</span>
         <v-icon right>mdi-logout</v-icon>
@@ -24,7 +58,7 @@
         </v-row>
       </v-img> -->
 
-      <v-list>
+      <v-list flat>
         <v-list>
             <v-list-item class="d-flex justify-center mt-3">
               <v-list-item-avatar size="120">
@@ -43,7 +77,7 @@
           <v-divider></v-divider>
 
         <v-list-item link v-for="(link, index) in links" :key="index" router :to="link.route"
-         >
+          color="primary">
               <v-list-item-icon>
                 <v-icon>{{ link.icon }}</v-icon>
               </v-list-item-icon>
@@ -55,6 +89,8 @@
 </template>
 
 <script>
+import Popup from '@/components/Popup.vue';
+
 export default {
   name: 'Navbar',
   data() {
@@ -67,6 +103,9 @@ export default {
         { icon: 'mdi-information-outline', text: 'About', route: '/about' },
       ],
     };
+  },
+  components: {
+    Popup,
   },
 };
 </script>

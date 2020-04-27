@@ -1,10 +1,10 @@
 <template>
-  <div class="dashboard">
+  <div class="dashboard page">
 
     <h1 class="display-2 grey--text text--lighten-1 mt-4 ml-4 font-weight-thin">Dashboard</h1>
 
     <v-container class="my-5">
-      <v-layout for class="mb-3">
+      <v-layout class="mb-3">
 
         <v-tooltip top>
           <template v-slot:activator="{ on }">

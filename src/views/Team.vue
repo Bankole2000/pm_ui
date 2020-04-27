@@ -1,5 +1,5 @@
 <template>
-  <div class="team">
+  <div class="team page">
     <h1 class="display-2 grey--text text--lighten-1 mt-4 ml-4 font-weight-thin">Team</h1>
     <v-container class="my-5">
       <v-layout row wrap>

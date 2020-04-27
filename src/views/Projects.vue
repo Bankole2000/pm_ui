@@ -1,5 +1,5 @@
 <template>
-  <div class="projects">
+  <div class="projects page">
     <h1 class="display-2 grey--text text--lighten-1 mt-4 ml-4 font-weight-thin">My Projects</h1>
 
 
@@ -63,19 +63,27 @@
             <v-card-text>
               <div class="font-weight-bold">Due by {{ p.due }}</div>
               <div>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id
-                voluptatem molestias tenetur accusamus nihil facilis doloremque explicabo nesciunt.
+                {{ p.desc }}
               </div>
             </v-card-text>
           </v-card>
         </v-expansion-panel-content>
       </v-expansion-panel>
       </v-expansion-panels>
+      <v-layout row class="hidden-md-and-up mt-3">
+        <v-flex xs12 class="d-flex justify-center">
+          <Popup />
+        </v-flex>
+
+      </v-layout>
+
     </v-container>
   </div>
 </template>
 
 <script>
+import Popup from '@/components/Popup.vue';
+
 export default {
   name: 'Projects',
   data() {
@@ -86,28 +94,35 @@ export default {
           person: 'Super Dev 1',
           due: '1st Jan 2020',
           status: 'ongoing',
+          desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id voluptatem molestias tenetur accusamus nihil facilis doloremque explicabo nesciunt',
         },
         {
           title: 'Code up the Homepate',
           person: 'Chin Chong 1',
           due: '10th Jan 2020',
           status: 'ongoing',
+          desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id voluptatem molestias tenetur accusamus nihil facilis doloremque explicabo nesciunt',
         },
         {
           title: 'Design Video Thumbnails',
           person: 'Ryu the Dev',
           due: '20th Feb 2020',
           status: 'completed',
+          desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id voluptatem molestias tenetur accusamus nihil facilis doloremque explicabo nesciunt',
         },
         {
           title: 'Create a community Forum',
           person: 'Programmer Gouken',
           due: '1st March 2020',
           status: 'overdue',
+          desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id voluptatem molestias tenetur accusamus nihil facilis doloremque explicabo nesciunt',
         },
       ],
       orderReverse: false,
     };
+  },
+  components: {
+    Popup,
   },
   methods: {
     sortBy(prop) {
