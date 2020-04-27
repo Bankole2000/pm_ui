@@ -35,6 +35,7 @@
                     prepend-inner-icon="mdi-folder"
                     v-model="title"
                     :value='title'
+                    type="text"
           @input='title = $event'>
                   </v-text-field>
                 </v-col>
@@ -46,6 +47,7 @@
                     prepend-inner-icon="mdi-account"
                     color="secondary"
                     v-model="title"
+                    type="text"
                     :value='person'
           @input='person = $event'>
                   </v-text-field>
@@ -61,6 +63,7 @@
                     dense
                     rows="2"
                     v-model="title"
+                    type="text"
                     :value='desc'
           @input='desc = $event'>
 
