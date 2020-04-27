@@ -22,7 +22,7 @@
         </v-card-title>
 
         <v-card-text>
-          <v-form @submit.prevent="addProject">
+          <v-form>
             <v-container>
               <v-row>
                 <v-col
@@ -32,7 +32,6 @@
                   <v-text-field
                     label="Project Title"
                     color="secondary"
-                    autofocus
                     prepend-inner-icon="mdi-folder"
                     v-model="title">
                   </v-text-field>
@@ -134,11 +133,11 @@ export default {
   data() {
     return {
       dialog: false,
-      title: null,
+      title: '',
       due: new Date().toISOString().substr(0, 10),
-      person: null,
-      desc: null,
-      status: null,
+      person: '',
+      desc: '',
+      status: '',
       statuses: ['ongoing', 'overdue', 'completed'],
       loading: false,
       dateModal: false,
@@ -161,12 +160,11 @@ export default {
         this.loading = false;
         this.dialog = false;
       }, 300);
-      this.newProject = {
-        title: null,
-        due: new Date().toISOString().substr(0, 10),
-        person: null,
-        desc: null,
-      };
+
+      this.title = '';
+      this.due = new Date().toISOString().substr(0, 10);
+      this.person = '';
+      this.desc = '';
     },
   },
   computed: {
