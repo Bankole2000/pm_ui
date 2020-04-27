@@ -8,8 +8,8 @@
         <span class="primary--text font-regular">Manager</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <div class="hidden-sm-and-down">
-        <Popup/>
+      <div class="hidden-screen-only">
+         <Popup/>
       </div>
       <v-menu offset-y
         bottom

@@ -70,9 +70,9 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
       </v-expansion-panels>
-      <v-layout row class="hidden-md-and-up mt-3">
+      <v-layout row class="mt-3">
         <v-flex xs12 class="d-flex justify-center">
-          <Popup @addProject='addProject' />
+          <Popup @addProject='addNewProject' />
         </v-flex>
 
       </v-layout>
@@ -133,8 +133,7 @@ export default {
       this.orderReverse = !this.orderReverse;
       return this.projects.sort((a, b) => (a[prop] > b[prop] ? -1 : 1));
     },
-    addProject(newProject) {
-      console.log(newProject);
+    addNewProject(newProject) {
       this.projects.push(newProject);
     },
   },

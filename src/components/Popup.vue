@@ -112,7 +112,7 @@
 
         <v-card-actions class="grey darken-3">
           <v-spacer></v-spacer>
-          <v-btn color="success" text @click="addProject"
+          <v-btn color="success" text @click="addProject(newProject)"
             :loading="loading">
             <v-icon left>mdi-plus-circle</v-icon> Add Project
           </v-btn>
@@ -149,14 +149,13 @@ export default {
     Loader,
   },
   methods: {
-    addProject() {
+    addProject(newProject) {
       this.loading = true;
-      console.log(this.newProject);
-      this.$emit('addProject', this.newProject);
+      this.$emit('addProject', newProject);
       setTimeout(() => {
         this.loading = false;
         this.dialog = false;
-      }, 1500);
+      }, 300);
       this.newProject = {
         title: null,
         due: new Date().toISOString().substr(0, 10),
