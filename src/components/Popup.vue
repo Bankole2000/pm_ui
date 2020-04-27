@@ -34,7 +34,7 @@
                     color="secondary"
                     autofocus
                     prepend-inner-icon="mdi-folder"
-                    v-model="newProject.title">
+                    v-model="title">
                   </v-text-field>
                 </v-col>
                 <v-col
@@ -44,7 +44,7 @@
                     label="Project Owner"
                     prepend-inner-icon="mdi-account"
                     color="secondary"
-                    v-model="newProject.person">
+                    v-model="person">
                   </v-text-field>
                 </v-col>
               </v-row>
@@ -57,7 +57,7 @@
                     prepend-inner-icon="mdi-pencil"
                     dense
                     rows="2"
-                    v-model="newProject.desc">
+                    v-model="desc">
 
                   </v-textarea>
                 </v-col>
@@ -74,7 +74,7 @@
         >
         <template v-slot:activator="{ on }">
           <v-text-field
-            :value="newProject.due | moment('Do MMM YYYY')"
+            :value="due | moment('Do MMM YYYY')"
             label="Due Date"
             prepend-icon="mdi-calendar-month"
             readonly
@@ -83,11 +83,11 @@
             @keypress="dateModal = true"
           ></v-text-field>
         </template>
-        <v-date-picker v-model="newProject.due" scrollable
+        <v-date-picker v-model="due" scrollable
         >
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="dateModal = false">Cancel</v-btn>
-          <v-btn text color="primary" @click="$refs.dialog.save(newProject.due)">OK</v-btn>
+          <v-btn text color="primary" @click="$refs.dialog.save(due)">OK</v-btn>
         </v-date-picker>
       </v-dialog>
                 </v-col>
@@ -98,7 +98,7 @@
           :items="statuses"
           filled
           label="Project Status"
-          v-model="newProject.status"
+          v-model="status"
           color="secondary"
           prepend-inner-icon="mdi-marker-check"
         ></v-select>
@@ -112,7 +112,7 @@
 
         <v-card-actions class="grey darken-3">
           <v-spacer></v-spacer>
-          <v-btn color="success" text @click="addProject(newProject)"
+          <v-btn color="success" text @click="addProject"
             :loading="loading">
             <v-icon left>mdi-plus-circle</v-icon> Add Project
           </v-btn>
@@ -134,12 +134,11 @@ export default {
   data() {
     return {
       dialog: false,
-      newProject: {
-        title: null,
-        due: new Date().toISOString().substr(0, 10),
-        person: null,
-        desc: null,
-      },
+      title: null,
+      due: new Date().toISOString().substr(0, 10),
+      person: null,
+      desc: null,
+      status: null,
       statuses: ['ongoing', 'overdue', 'completed'],
       loading: false,
       dateModal: false,
@@ -149,7 +148,13 @@ export default {
     Loader,
   },
   methods: {
-    addProject(newProject) {
+    addProject() {
+      const newProject = {
+        title: this.title,
+        due: this.due,
+        desc: this.desc,
+        status: this.status,
+      };
       this.loading = true;
       this.$emit('addProject', newProject);
       setTimeout(() => {
