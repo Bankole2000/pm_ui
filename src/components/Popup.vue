@@ -82,6 +82,18 @@
       </v-dialog>
                 </v-col>
               </v-row>
+              <v-row>
+                <v-col class="d-flex" cols="12">
+        <v-select
+          :items="statuses"
+          filled
+          label="Project Status"
+          v-model="newProject.status"
+          color="secondary"
+          prepend-inner-icon="mdi-marker-check"
+        ></v-select>
+      </v-col>
+              </v-row>
             </v-container>
           </v-form>
         </v-card-text>
@@ -113,8 +125,12 @@ export default {
     return {
       dialog: false,
       newProject: {
+        title: null,
         due: new Date().toISOString().substr(0, 10),
+        person: null,
+        desc: null,
       },
+      statuses: ['ongoing', 'overdue', 'completed'],
       loading: false,
       dateModal: false,
     };
@@ -126,10 +142,17 @@ export default {
     addProject() {
       this.loading = true;
       console.log(this.newProject);
+      this.$emit('addProject', this.newProject);
       setTimeout(() => {
         this.loading = false;
         this.dialog = false;
-      }, 3000);
+      }, 1500);
+      this.newProject = {
+        title: null,
+        due: new Date().toISOString().substr(0, 10),
+        person: null,
+        desc: null,
+      };
     },
   },
   computed: {
