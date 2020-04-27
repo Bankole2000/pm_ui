@@ -11,6 +11,14 @@
       <v-card class="grey darken-4">
         <v-card-title class="headline grey darken-3 warning--text">
           Add A New Project
+          <v-spacer></v-spacer>
+
+               <v-btn
+                  icon class="grey darken-1" text
+                  @click="dialog = false"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
         </v-card-title>
 
         <v-card-text>
@@ -47,6 +55,8 @@
                     label="Project Details"
                     color="secondary"
                     prepend-inner-icon="mdi-pencil"
+                    dense
+                    rows="2"
                     v-model="newProject.desc">
 
                   </v-textarea>
