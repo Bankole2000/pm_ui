@@ -46,7 +46,7 @@
                     label="Project Owner"
                     prepend-inner-icon="mdi-account"
                     color="secondary"
-                    v-model="title"
+                    v-model="person"
                     type="text"
                     :value='person'
           @input='person = $event'>
@@ -62,7 +62,7 @@
                     prepend-inner-icon="mdi-pencil"
                     dense
                     rows="2"
-                    v-model="title"
+                    v-model="desc"
                     type="text"
                     :value='desc'
           @input='desc = $event'>
