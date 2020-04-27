@@ -33,7 +33,9 @@
                     label="Project Title"
                     color="secondary"
                     prepend-inner-icon="mdi-folder"
-                    v-model="title">
+
+                    :value='title'
+          @input='title = $event'>
                   </v-text-field>
                 </v-col>
                 <v-col
@@ -43,7 +45,8 @@
                     label="Project Owner"
                     prepend-inner-icon="mdi-account"
                     color="secondary"
-                    v-model="person">
+                    :value='person'
+          @input='person = $event'>
                   </v-text-field>
                 </v-col>
               </v-row>
@@ -56,7 +59,8 @@
                     prepend-inner-icon="mdi-pencil"
                     dense
                     rows="2"
-                    v-model="desc">
+                    :value='desc'
+          @input='desc = $event'>
 
                   </v-textarea>
                 </v-col>
