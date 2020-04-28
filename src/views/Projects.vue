@@ -27,7 +27,7 @@
 
       </v-layout>
       <v-expansion-panels>
-      <v-expansion-panel v-for="(p, i) in projects" :key="i">
+      <v-expansion-panel v-for="(p, i) in myProjects" :key="i">
         <v-expansion-panel-header tile v-slot:default="{ open }"
         :class="`project ${p.status} d-flex justify-space-between align-items-center px-12`">
         <v-layout row wrap class="project">
@@ -76,13 +76,16 @@
         </v-flex>
 
       </v-layout>
-
+      <Snackbar :snackbar='snackbar.snackbar' :text='snackbar.text' :sclass='snackbar.sclass'
+      :timeout='snackbar.timeout' />
     </v-container>
   </div>
 </template>
 
 <script>
+import db from '@/firebase/init';
 import Popup from '@/components/Popup.vue';
+import Snackbar from '@/components/Snackbar.vue';
 
 export default {
   name: 'Projects',
@@ -118,11 +121,18 @@ export default {
           desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id voluptatem molestias tenetur accusamus nihil facilis doloremque explicabo nesciunt',
         },
       ],
+      snackbar: {
+        snackbar: false,
+        text: null,
+        sclass: null,
+        timeout: 1000,
+      },
       orderReverse: false,
     };
   },
   components: {
     Popup,
+    Snackbar,
   },
   methods: {
     sortBy(prop) {
@@ -135,11 +145,29 @@ export default {
     },
     addNewProject(newProject) {
       this.projects.push(newProject);
+      this.snackbar.snackbar = true;
+      this.snackbar.text = 'Project Successfully Added';
+      this.snackbar.sclass = 'success';
+      this.snackbar.timeout = 3000;
     },
+  },
+  created() {
+    db.collection('projects').onSnapshot((res) => {
+      const changes = res.docChanges();
+
+      changes.forEach((change) => {
+        if (change.type === 'added') {
+          this.projects.push({
+            ...change.doc.data(),
+            id: change.doc.id,
+          });
+        }
+      });
+    });
   },
   computed: {
     myProjects() {
-      return this.projects.filter((project) => project.person === 'Super Dev 1');
+      return this.projects.filter((project) => project.person === 'Sean Bankz');
     },
   },
 };

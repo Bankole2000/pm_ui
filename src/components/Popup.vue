@@ -22,7 +22,7 @@
         </v-card-title>
 
         <v-card-text>
-          <v-form>
+          <v-form ref="form">
             <v-container>
               <v-row>
                 <v-col
@@ -36,6 +36,7 @@
                     v-model="title"
                     :value='title'
                     type="text"
+                    :rules="inputRules"
           @input='title = $event'>
                   </v-text-field>
                 </v-col>
@@ -49,7 +50,8 @@
                     v-model="person"
                     type="text"
                     :value='person'
-          @input='person = $event'>
+          @input='person = $event'
+          :rules="inputRules">
                   </v-text-field>
                 </v-col>
               </v-row>
@@ -65,7 +67,8 @@
                     v-model="desc"
                     type="text"
                     :value='desc'
-          @input='desc = $event'>
+          @input='desc = $event'
+          :rules="inputRules">
 
                   </v-textarea>
                 </v-col>
@@ -134,7 +137,7 @@
 </template>
 
 <script>
-
+import db from '@/firebase/init';
 import Loader from '@/components/Loader.vue';
 
 export default {
@@ -150,6 +153,9 @@ export default {
       statuses: ['ongoing', 'overdue', 'completed'],
       loading: false,
       dateModal: false,
+      inputRules: [
+        (v) => v.length >= 3 || 'Minimum length is 3 Characters',
+      ],
     };
   },
   components: {
@@ -157,23 +163,28 @@ export default {
   },
   methods: {
     addProject() {
-      const newProject = {
-        title: this.title,
-        due: this.due,
-        desc: this.desc,
-        status: this.status,
-      };
-      this.loading = true;
-      this.$emit('addProject', newProject);
-      setTimeout(() => {
-        this.loading = false;
-        this.dialog = false;
-      }, 300);
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+        const newProject = {
+          title: this.title,
+          due: this.$moment(this.due).format('Do MMM YYYY'),
+          desc: this.desc,
+          status: this.status,
+          person: this.person,
+        };
+        console.log(newProject);
+        db.collection('projects').add(newProject)
+          .then(() => {
+            console.log('Added to the Database');
+            this.$emit('addProject', newProject);
+            // this.$refs.form.reset();
+            this.loading = false;
+            this.dialog = false;
 
-      this.title = '';
-      this.due = new Date().toISOString().substr(0, 10);
-      this.person = '';
-      this.desc = '';
+            // Add Snack Bar here;
+          })
+          .catch((err) => console.log(err));
+      }
     },
   },
   computed: {

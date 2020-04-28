@@ -42,7 +42,7 @@
         </v-list>
       </v-menu>
 
-      <v-btn color="grey lighten-3" text>
+      <v-btn color="grey lighten-3" @click="$emit('testSnackbar')" text>
         <span>Sign out</span>
         <v-icon right>mdi-logout</v-icon>
       </v-btn>

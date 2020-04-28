@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <Navbar />
+    <Navbar @testSnackbar='testSnackbar' />
+    <Snackbar :snackbar='snackbar.snackbar' :text='snackbar.text' :sclass='snackbar.sclass'
+      :timeout='snackbar.timeout' />
     <v-content dark class="px-4 pb-4 grey darken-4">
       <transition name="router-anim">
       <router-view> </router-view>
@@ -13,6 +15,7 @@
 <script>
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
+import Snackbar from '@/components/Snackbar.vue';
 
 export default {
   name: 'App',
@@ -20,11 +23,31 @@ export default {
   components: {
     Navbar,
     Footer,
+    Snackbar,
   },
 
-  data: () => ({
-    //
-  }),
+  methods: {
+    testSnackbar() {
+      this.snackbar.snackbar = true;
+      this.snackbar.text = 'Testing Snackbar';
+      this.snackbar.timeout = 1500;
+      this.snackbar.sclass = 'warning';
+      setTimeout(() => {
+        this.snackbar.snackbar = false;
+      }, this.snackbar.timeout);
+    },
+  },
+
+  data() {
+    return {
+      snackbar: {
+        snackbar: false,
+        text: null,
+        sclass: null,
+        timeout: 1000,
+      },
+    };
+  },
 };
 </script>
 <style>
